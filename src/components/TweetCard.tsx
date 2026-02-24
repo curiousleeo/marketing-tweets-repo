@@ -83,6 +83,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
   const [popped, setPopped] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [tweeting, setTweeting] = useState(false);
 
   const style = categoryStyle[tweet.category] || fallbackStyle;
 
@@ -138,6 +139,43 @@ export default function TweetCard({ tweet }: TweetCardProps) {
       window.open(`/card/${tweet.id}/opengraph-image`, "_blank");
     } finally {
       setDownloading(false);
+    }
+  };
+
+  const handleTweetWithImage = async () => {
+    setTweeting(true);
+    const cardUrl = `https://marketing-tweets-repo.vercel.app/card/${tweet.id}`;
+    try {
+      const res = await fetch(`/card/${tweet.id}/opengraph-image`);
+      const blob = await res.blob();
+      const file = new File([blob], `${tweet.author.handle.replace("@", "")}-tweet.png`, { type: "image/png" });
+
+      // Mobile: native share sheet — image attaches directly to Twitter
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          text: `— ${tweet.author.handle}\n\nThe Marketing Tweet Vault\n${cardUrl}`,
+        });
+        return;
+      }
+
+      // Desktop fallback: download image + open Twitter so user can attach it
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.name;
+      a.click();
+      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        window.open(
+          `https://twitter.com/intent/tweet?text=${encodeURIComponent(`— ${tweet.author.handle}\n\nThe Marketing Tweet Vault\n${cardUrl}`)}`,
+          "_blank"
+        );
+      }, 600);
+    } catch {
+      // Share cancelled or failed — do nothing
+    } finally {
+      setTweeting(false);
     }
   };
 
@@ -283,20 +321,17 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 
             {/* Action buttons */}
             <div className="flex gap-3">
-              {/* Tweet This — shares the card URL; Twitter auto-renders the OG image */}
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  `"${tweet.text.length > 180 ? tweet.text.substring(0, 177) + "..." : tweet.text}"\n\n— ${tweet.author.handle}\n\nFrom The Marketing Tweet Vault\nhttps://marketing-tweets-repo.vercel.app/card/${tweet.id}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#d4ff00] hover:bg-[#c8f000] text-black font-bold rounded-xl transition-colors text-sm"
+              {/* Tweet This — mobile: native share with image attached; desktop: download + open Twitter */}
+              <button
+                onClick={handleTweetWithImage}
+                disabled={tweeting}
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#d4ff00] hover:bg-[#c8f000] text-black font-bold rounded-xl transition-colors text-sm disabled:opacity-60"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.76l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
-                Tweet This
-              </a>
+                {tweeting ? "..." : "Tweet This"}
+              </button>
 
               {/* Download for Instagram / LinkedIn */}
               <button
