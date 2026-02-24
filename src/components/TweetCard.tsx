@@ -192,18 +192,15 @@ export default function TweetCard({ tweet }: TweetCardProps) {
               View →
             </span>
           )}
-          <a
-            href={`/card/${tweet.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+          <button
+            onClick={(e) => { e.stopPropagation(); window.open(`/card/${tweet.id}`, "_blank", "noopener,noreferrer"); }}
             title="Share this tweet"
             className="text-[#333] hover:text-[#d4ff00] transition-colors"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -211,18 +208,13 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 
   const cardClass = `group relative bg-[#111] border border-[#1f1f1f] border-l-4 ${style.border} rounded-xl p-5 hover:border-[#2a2a2a] hover:bg-[#151515] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer h-full flex flex-col`;
 
-  if (tweet.tweetUrl) {
-    return (
-      <a
-        href={tweet.tweetUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`block ${cardClass}`}
-      >
-        {cardContent}
-      </a>
-    );
-  }
+  const handleCardClick = () => {
+    if (tweet.tweetUrl) window.open(tweet.tweetUrl, "_blank", "noopener,noreferrer");
+  };
 
-  return <div className={cardClass}>{cardContent}</div>;
+  return (
+    <div className={cardClass} onClick={handleCardClick}>
+      {cardContent}
+    </div>
+  );
 }
