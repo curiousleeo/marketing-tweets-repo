@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { Redis } from "@upstash/redis";
 import tweetsData from "@/data/tweets.json";
 import { Tweet } from "@/types";
 
@@ -15,14 +16,30 @@ const categoryColors: Record<string, string> = {
   "Growth": "#4ade80",
 };
 
+async function getTweet(tweetId: string): Promise<Tweet | null> {
+  if (process.env.KV_REST_API_URL) {
+    try {
+      const kv = new Redis({
+        url: process.env.KV_REST_API_URL!,
+        token: process.env.KV_REST_API_TOKEN!,
+      });
+      const data = await kv.get<{ tweets: Tweet[] }>("tweets");
+      if (data?.tweets) {
+        return data.tweets.find((t) => t.id === tweetId) ?? null;
+      }
+    } catch {
+      // fall through to static JSON
+    }
+  }
+  return (tweetsData.tweets as Tweet[]).find((t) => t.id === tweetId) ?? null;
+}
+
 export default async function Image({
   params,
 }: {
   params: { tweetId: string };
 }) {
-  const tweet = (tweetsData.tweets as Tweet[]).find(
-    (t) => t.id === params.tweetId
-  );
+  const tweet = await getTweet(params.tweetId);
 
   if (!tweet) {
     return new ImageResponse(

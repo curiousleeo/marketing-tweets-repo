@@ -14,14 +14,31 @@ const categoryColors: Record<string, string> = {
   "Growth": "#4ade80",
 };
 
+async function getTweet(tweetId: string): Promise<Tweet | null> {
+  if (process.env.KV_REST_API_URL) {
+    try {
+      const { Redis } = await import("@upstash/redis");
+      const kv = new Redis({
+        url: process.env.KV_REST_API_URL!,
+        token: process.env.KV_REST_API_TOKEN!,
+      });
+      const data = await kv.get<{ tweets: Tweet[] }>("tweets");
+      if (data?.tweets) {
+        return data.tweets.find((t) => t.id === tweetId) ?? null;
+      }
+    } catch {
+      // fall through to static JSON
+    }
+  }
+  return (tweetsData.tweets as Tweet[]).find((t) => t.id === tweetId) ?? null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: { tweetId: string };
 }) {
-  const tweet = (tweetsData.tweets as Tweet[]).find(
-    (t) => t.id === params.tweetId
-  );
+  const tweet = await getTweet(params.tweetId);
   if (!tweet) return { title: "Tweet not found" };
 
   return {
@@ -40,14 +57,12 @@ export async function generateMetadata({
   };
 }
 
-export default function CardPage({
+export default async function CardPage({
   params,
 }: {
   params: { tweetId: string };
 }) {
-  const tweet = (tweetsData.tweets as Tweet[]).find(
-    (t) => t.id === params.tweetId
-  );
+  const tweet = await getTweet(params.tweetId);
   if (!tweet) notFound();
 
   const accent = categoryColors[tweet.category] || "#d4ff00";
@@ -93,11 +108,8 @@ export default function CardPage({
         </a>
 
         <button
-          onClick={undefined}
           id="copy-btn"
           className="flex-1 flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#111] border border-[#2a2a2a] hover:bg-[#181818] text-white font-medium rounded-xl transition-colors text-sm"
-          // Copy handled client-side via inline onclick
-          // We use a simple approach with a data attribute
           data-url={cardUrl}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
