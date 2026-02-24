@@ -8,12 +8,12 @@ import contributorsData from "@/data/contributors.json";
 const TWEETS_FILE = path.join(process.cwd(), "src/data/tweets.json");
 const CONTRIBUTORS_FILE = path.join(process.cwd(), "src/data/contributors.json");
 
-// Use Vercel KV in production, JSON files locally
-const useKV = !!process.env.KV_REST_API_URL;
+// Use Upstash Redis in production, JSON files locally
+const useKV = !!process.env.UPSTASH_REDIS_REST_URL;
 
 async function getKV() {
-  const { kv } = await import("@vercel/kv");
-  return kv;
+  const { Redis } = await import("@upstash/redis");
+  return Redis.fromEnv();
 }
 
 // GET - fetch all tweets (used by the frontend to get live data)

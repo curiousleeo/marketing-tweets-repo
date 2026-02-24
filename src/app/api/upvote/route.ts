@@ -5,11 +5,11 @@ import { Tweet } from "@/types";
 
 const TWEETS_FILE = path.join(process.cwd(), "src/data/tweets.json");
 
-const useKV = !!process.env.KV_REST_API_URL;
+const useKV = !!process.env.UPSTASH_REDIS_REST_URL;
 
 async function getKV() {
-  const { kv } = await import("@vercel/kv");
-  return kv;
+  const { Redis } = await import("@upstash/redis");
+  return Redis.fromEnv();
 }
 
 export async function POST(req: NextRequest) {

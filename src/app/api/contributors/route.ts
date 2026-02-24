@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import { Contributor } from "@/types";
 import contributorsData from "@/data/contributors.json";
 
-const useKV = !!process.env.KV_REST_API_URL;
+const useKV = !!process.env.UPSTASH_REDIS_REST_URL;
 
 async function getKV() {
-  const { kv } = await import("@vercel/kv");
-  return kv;
+  const { Redis } = await import("@upstash/redis");
+  return Redis.fromEnv();
 }
 
 export async function GET() {
