@@ -283,21 +283,38 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 
             {/* Action buttons */}
             <div className="flex gap-3">
+              {/* Tweet This — shares the card URL; Twitter auto-renders the OG image */}
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  `"${tweet.text.length > 180 ? tweet.text.substring(0, 177) + "..." : tweet.text}"\n\n— ${tweet.author.handle}\n\nvia @MarketingVault\nhttps://marketing-tweets-repo.vercel.app/card/${tweet.id}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#d4ff00] hover:bg-[#c8f000] text-black font-bold rounded-xl transition-colors text-sm"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.76l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Tweet This
+              </a>
+
+              {/* Download for Instagram / LinkedIn */}
               <button
                 onClick={handleDownload}
                 disabled={downloading}
-                className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-[#d4ff00] hover:bg-[#c8f000] text-black font-bold rounded-xl transition-colors text-sm disabled:opacity-60"
+                className="flex items-center justify-center gap-2 px-5 py-3 bg-[#111] border border-[#2a2a2a] hover:bg-[#181818] text-white font-medium rounded-xl transition-colors text-sm disabled:opacity-60"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                {downloading ? "Downloading..." : "Download Image"}
+                {downloading ? "..." : "Download"}
               </button>
+
               <button
                 onClick={() => setShowPreview(false)}
-                className="px-5 py-3 bg-[#111] border border-[#2a2a2a] hover:bg-[#181818] text-[#888] hover:text-white font-medium rounded-xl transition-colors text-sm"
+                className="px-4 py-3 bg-[#0d0d0d] border border-[#1f1f1f] hover:bg-[#111] text-[#555] hover:text-white rounded-xl transition-colors text-sm"
               >
-                Close
+                ✕
               </button>
             </div>
           </div>
