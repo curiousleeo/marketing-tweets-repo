@@ -193,8 +193,22 @@ export default function TweetCard({ tweet }: TweetCardProps) {
             </span>
           )}
           <button
-            onClick={(e) => { e.stopPropagation(); window.open(`/card/${tweet.id}`, "_blank", "noopener,noreferrer"); }}
-            title="Share this tweet"
+            onClick={async (e) => {
+              e.stopPropagation();
+              try {
+                const res = await fetch(`/card/${tweet.id}/opengraph-image`);
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `tweet-${tweet.id}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+              } catch {
+                window.open(`/card/${tweet.id}/opengraph-image`, "_blank");
+              }
+            }}
+            title="Download tweet card image"
             className="text-[#333] hover:text-[#d4ff00] transition-colors"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
