@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { Redis } from "@upstash/redis";
-import tweetsData from "@/data/tweets.json";
-import { Tweet } from "@/types";
+import marketingData from "@/data/marketing.json";
+import { ContentItem } from "@/types";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -16,22 +16,22 @@ const categoryColors: Record<string, string> = {
   "Growth": "#4ade80",
 };
 
-async function getTweet(tweetId: string): Promise<Tweet | null> {
+async function getTweet(tweetId: string): Promise<ContentItem | null> {
   if (process.env.KV_REST_API_URL) {
     try {
       const kv = new Redis({
         url: process.env.KV_REST_API_URL!,
         token: process.env.KV_REST_API_TOKEN!,
       });
-      const data = await kv.get<{ tweets: Tweet[] }>("tweets");
-      if (data?.tweets) {
-        return data.tweets.find((t) => t.id === tweetId) ?? null;
+      const data = await kv.get<{ items: ContentItem[] }>("content:marketing");
+      if (data?.items) {
+        return data.items.find((t) => t.id === tweetId) ?? null;
       }
     } catch {
       // fall through to static JSON
     }
   }
-  return (tweetsData.tweets as Tweet[]).find((t) => t.id === tweetId) ?? null;
+  return (marketingData.items as ContentItem[]).find((t) => t.id === tweetId) ?? null;
 }
 
 export default async function Image({
@@ -78,7 +78,7 @@ export default async function Image({
           borderLeft: `12px solid ${accent}`,
         }}
       >
-        {/* Top: Author hero — the most prominent element */}
+        {/* Top: Author hero */}
         <div
           style={{
             display: "flex",
@@ -135,7 +135,6 @@ export default async function Image({
             position: "relative",
           }}
         >
-          {/* Big quote mark */}
           <span
             style={{
               position: "absolute",
@@ -163,7 +162,7 @@ export default async function Image({
           </p>
         </div>
 
-        {/* Footer: vault brand */}
+        {/* Footer */}
         <div
           style={{
             display: "flex",
@@ -183,7 +182,7 @@ export default async function Image({
               textTransform: "uppercase",
             }}
           >
-            Marketing Tweet Vault
+            The Content Vault
           </span>
         </div>
       </div>

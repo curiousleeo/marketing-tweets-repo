@@ -16,6 +16,10 @@ const categoryDot: Record<string, string> = {
   "Web3 Marketing": "bg-[#c084fc]",
   "Copywriting": "bg-[#f472b6]",
   "Growth": "bg-[#4ade80]",
+  "AI Tools & Stacks": "bg-[#22d3ee]",
+  "Prompting Tips": "bg-[#a78bfa]",
+  "Workflow / Productivity": "bg-[#fbbf24]",
+  "Project Ideas": "bg-[#34d399]",
 };
 
 export default function FilterBar({

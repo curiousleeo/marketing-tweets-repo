@@ -1,34 +1,7 @@
-export interface Author {
-  name: string;
-  handle: string;
-  avatar: string;
-}
+export type Section = "marketing" | "vibe-coding";
+export type Platform = "tweet" | "reel";
 
-export interface Tweet {
-  id: string;
-  text: string;
-  author: Author;
-  category: Category;
-  date: string;
-  likes: number;
-  retweets: number;
-  bookmarks: number;
-  tweetUrl?: string;
-  upvotes: number;
-  contributedBy?: {
-    name: string;
-    handle: string;
-  };
-}
-
-export interface Contributor {
-  handle: string;
-  name: string;
-  tweetsAdded: number;
-  joinedDate: string;
-}
-
-export type Category =
+export type MarketingCategory =
   | "Content Strategy"
   | "Personal Branding"
   | "Community Building"
@@ -36,8 +9,60 @@ export type Category =
   | "Copywriting"
   | "Growth";
 
+export type VibeCodingCategory =
+  | "AI Tools & Stacks"
+  | "Prompting Tips"
+  | "Workflow / Productivity"
+  | "Project Ideas";
+
+export type Category = MarketingCategory | VibeCodingCategory;
+
+export interface Author {
+  name: string;
+  handle: string;
+  avatar: string;
+}
+
+export interface ContentItem {
+  id: string;
+  platform: Platform;
+  section: Section;
+  text: string;
+  author: Author;
+  category: Category;
+  date: string;
+  upvotes: number;
+  // Tweet-only (optional on reels)
+  likes?: number;
+  retweets?: number;
+  bookmarks?: number;
+  tweetUrl?: string;
+  // Reel-only (optional on tweets)
+  reelUrl?: string;
+  thumbnailUrl?: string;
+  contributedBy?: {
+    name: string;
+    handle: string;
+  };
+}
+
+// Backward-compat alias
+export type Tweet = ContentItem;
+
+export interface Contributor {
+  handle: string;
+  name: string;
+  itemsAdded: number;
+  joinedDate: string;
+}
+
 export type SortOption = "date" | "upvotes";
 
+export interface ContentData {
+  items: ContentItem[];
+}
+
+// Legacy alias
 export interface TweetsData {
-  tweets: Tweet[];
+  tweets: ContentItem[];
 }

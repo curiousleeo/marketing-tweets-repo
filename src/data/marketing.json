@@ -1,7 +1,9 @@
 {
-  "tweets": [
+  "items": [
     {
       "id": "1",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "How to grow on X (writing from the bottom of my heart): First ask yourself - Are you creating quality content? Are you doing something original or just copying others? Are you doing research before posting? Format matters - Anyone can write, but only those with a banger format stand out.",
       "author": {
         "name": "Param",
@@ -18,6 +20,8 @@
     },
     {
       "id": "2",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "The Twitter Algorithm & Growth Guide — I've spent the last week going over the twitter algorithm code, line by line, to understand exactly how it works.",
       "author": {
         "name": "The Crypto Intern",
@@ -34,6 +38,8 @@
     },
     {
       "id": "3",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Every Article On Growth You'll Ever Need — Bookmark this article, you'll want to come back to it. This is a list of the BEST articles, threads, and CT hacks I have read.",
       "author": {
         "name": "Glenn",
@@ -50,6 +56,8 @@
     },
     {
       "id": "4",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Unpopular opinion: 99% of Web3 marketing isn't marketing. Its random tactics disguised as \"campaigns\": WL raffle, Airdrop hyping, Space announcement. \"Engagement = success\" — Feels loud and active, but the end result is the same: zero new users. I'm not interested in vanity metrics.",
       "author": {
         "name": "Yowie",
@@ -66,6 +74,8 @@
     },
     {
       "id": "5",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "As you build your brand, one thing is certain. You need to make connections and expand your network. I know that's not an easy thing to do, so I found a more streamlined way to do it.",
       "author": {
         "name": "Doris",
@@ -82,6 +92,8 @@
     },
     {
       "id": "6",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "What We Learned After Running Hundreds of Viral Web3 Launch Campaigns — From 2023 to 2024, Surgence Labs was doing what most people would call \"marketing\" for ecosystems. Distribution strategy. KOL campaigns. Community growth. Content systems. Launch coordination. The whole playbook.",
       "author": {
         "name": "ruthy",
@@ -98,6 +110,8 @@
     },
     {
       "id": "7",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "How to Grow: 2026 X Algo (Exact DOs & DON'Ts) — Algorithm breakdowns are flooding the timelines. This will cover exactly what to DO and DON'T to grow your account. Short and sweet.",
       "author": {
         "name": "Emily Lai",
@@ -114,6 +128,8 @@
     },
     {
       "id": "8",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Web3 Agencies that you need to know — InfoFi is dead. Gone. Not coming back. I see a lot of newer Creators and KOLs panic because part of their income just disappeared. But I've been doing content for years now and take it from me: this is a good thing. Great even.",
       "author": {
         "name": "zaimiri",
@@ -130,6 +146,8 @@
     },
     {
       "id": "9",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "My daily go-to apps + websites: X Pro, Claude, Spotify, Loveable, Canva, Zora, Typefully, Comet Browser, Gemini Pro, workout tracker, calendar, YouTube, Base app, Telegram, Audible, CapCut, Google Photos, Gmail, and Hinge.",
       "author": {
         "name": "Medusa",
@@ -146,6 +164,8 @@
     },
     {
       "id": "10",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "The Creator Economy Boom of 2026 — Do not be mistaken, now is the greatest time to be a creator. We've all been part of the creator economy this year but I'm putting more time into studying the real uptrend in this entire market. The numbers are wild, the opportunities are endless, and the barrier to entry has never been lower.",
       "author": {
         "name": "GB",
@@ -162,6 +182,8 @@
     },
     {
       "id": "11",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Marketing minute: your community is the best marketing team you'll ever have. Give them what they need: direct access to the team, documents on your product, brand assets so they can make quality content. Enable your creators properly and they'll move mountains for you.",
       "author": {
         "name": "GB",
@@ -178,6 +200,8 @@
     },
     {
       "id": "12",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Pro-tip for easy content. Every time you go to comment on something (not as a reply guy, but a real value adding comment), just quote repost it instead. You'll easily hit 4-5 posts a day without even trying.",
       "author": {
         "name": "Alex is Building",
@@ -194,6 +218,8 @@
     },
     {
       "id": "13",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Marketing minute: stop only looking at what worked in this space. Take inspiration from outside sources — different industries, different eras. Go back in time, find what stood out, and adapt it. Great campaigns come from taking risks, not just copying what everyone else is doing.",
       "author": {
         "name": "GB",
@@ -210,6 +236,8 @@
     },
     {
       "id": "14",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "The most underused 'reply guy' tactic to stand out amongst all replies: this came up in the intern office hours yesterday and I realised I've only posted this 2-3 times so here's an easy way to stand out amongst all the other 'reply guys' that no one is using.",
       "author": {
         "name": "The Crypto Intern",
@@ -226,6 +254,8 @@
     },
     {
       "id": "15",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Most copy explains what something does instead of what it does for you. The fastest way to fix that: add \"so you can\" after your sentence. Example: \"stake your tokens and earn rewards\" becomes \"stake your tokens to earn rewards so you can build passive income without thinking about it.\"",
       "author": {
         "name": "The Crypto Intern",
@@ -242,6 +272,8 @@
     },
     {
       "id": "16",
+      "platform": "tweet",
+      "section": "marketing",
       "text": "Feel invisible on X? Here's 10 ways to break out of it: post every day — momentum over perfection. Reply with intent, not desperation. Build a clean profile that speaks about you. Pick a niche and get obsessed. Study the ones who've already won. Learn to write better.",
       "author": {
         "name": "Glenn",

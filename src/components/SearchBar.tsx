@@ -17,7 +17,7 @@ export default function SearchBar({ searchQuery, onSearchChange }: SearchBarProp
         type="text"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
-        placeholder="Search tweets, authors..."
+        placeholder="Search content, authors..."
         className="w-full pl-11 pr-4 py-2.5 bg-[#111] border border-[#1f1f1f] rounded-lg text-[#f0f0f0] placeholder-[#444] text-sm focus:outline-none focus:border-[#d4ff00]/40 focus:ring-1 focus:ring-[#d4ff00]/20 transition-all"
       />
       {searchQuery && (

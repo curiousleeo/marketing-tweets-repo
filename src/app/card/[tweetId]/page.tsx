@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import tweetsData from "@/data/tweets.json";
-import { Tweet } from "@/types";
+import marketingData from "@/data/marketing.json";
+import { ContentItem } from "@/types";
 
-const SITE_URL = "https://marketing-tweets-repo.vercel.app";
+const SITE_URL = "https://content-vault.vercel.app";
 
 const categoryColors: Record<string, string> = {
   "Content Strategy": "#d4ff00",
@@ -14,7 +14,7 @@ const categoryColors: Record<string, string> = {
   "Growth": "#4ade80",
 };
 
-async function getTweet(tweetId: string): Promise<Tweet | null> {
+async function getTweet(tweetId: string): Promise<ContentItem | null> {
   if (process.env.KV_REST_API_URL) {
     try {
       const { Redis } = await import("@upstash/redis");
@@ -22,15 +22,15 @@ async function getTweet(tweetId: string): Promise<Tweet | null> {
         url: process.env.KV_REST_API_URL!,
         token: process.env.KV_REST_API_TOKEN!,
       });
-      const data = await kv.get<{ tweets: Tweet[] }>("tweets");
-      if (data?.tweets) {
-        return data.tweets.find((t) => t.id === tweetId) ?? null;
+      const data = await kv.get<{ items: ContentItem[] }>("content:marketing");
+      if (data?.items) {
+        return data.items.find((t) => t.id === tweetId) ?? null;
       }
     } catch {
       // fall through to static JSON
     }
   }
-  return (tweetsData.tweets as Tweet[]).find((t) => t.id === tweetId) ?? null;
+  return (marketingData.items as ContentItem[]).find((t) => t.id === tweetId) ?? null;
 }
 
 export async function generateMetadata({
@@ -39,18 +39,18 @@ export async function generateMetadata({
   params: { tweetId: string };
 }) {
   const tweet = await getTweet(params.tweetId);
-  if (!tweet) return { title: "Tweet not found" };
+  if (!tweet) return { title: "Not found" };
 
   return {
-    title: `${tweet.author.name} — Marketing Tweet Vault`,
+    title: `${tweet.author.name} — The Content Vault`,
     description: tweet.text.substring(0, 160),
     twitter: {
       card: "summary_large_image",
-      title: `${tweet.author.name} on Marketing Tweet Vault`,
+      title: `${tweet.author.name} on The Content Vault`,
       description: tweet.text.substring(0, 160),
     },
     openGraph: {
-      title: `${tweet.author.name} — Marketing Tweet Vault`,
+      title: `${tweet.author.name} — The Content Vault`,
       description: tweet.text.substring(0, 160),
       type: "website",
     },
@@ -72,7 +72,7 @@ export default async function CardPage({
     : tweet.text;
 
   const tweetText = encodeURIComponent(
-    `"${preview}"\n\n— ${tweet.author.name} (${tweet.author.handle})\n\nFound in The Marketing Tweet Vault\n${cardUrl}`
+    `"${preview}"\n\n— ${tweet.author.name} (${tweet.author.handle})\n\nFound in The Content Vault\n${cardUrl}`
   );
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
@@ -81,7 +81,6 @@ export default async function CardPage({
       style={{ background: "#050505", minHeight: "100vh" }}
       className="flex flex-col items-center justify-center px-4 py-16"
     >
-      {/* Card preview image */}
       <div className="w-full max-w-2xl mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -92,7 +91,6 @@ export default async function CardPage({
         />
       </div>
 
-      {/* Action buttons */}
       <div className="flex flex-col sm:flex-row gap-3 w-full max-w-2xl">
         <a
           href={twitterShareUrl}
@@ -127,10 +125,9 @@ export default async function CardPage({
       </div>
 
       <p className="text-[#333] text-xs mt-8 tracking-widest uppercase">
-        The Marketing Tweet Vault · Open Source
+        The Content Vault · Open Source
       </p>
 
-      {/* Client-side copy script */}
       <script
         dangerouslySetInnerHTML={{
           __html: `

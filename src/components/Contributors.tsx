@@ -9,7 +9,7 @@ interface ContributorsProps {
 export default function Contributors({ contributors }: ContributorsProps) {
   if (contributors.length === 0) return null;
 
-  const sorted = [...contributors].sort((a, b) => b.tweetsAdded - a.tweetsAdded);
+  const sorted = [...contributors].sort((a, b) => (b.itemsAdded || 0) - (a.itemsAdded || 0));
 
   return (
     <section className="mt-20">
@@ -52,7 +52,7 @@ export default function Contributors({ contributors }: ContributorsProps) {
                 {contributor.handle}
               </p>
               <span className="px-2 py-0.5 bg-[#d4ff00]/10 border border-[#d4ff00]/20 rounded-full text-[#d4ff00] text-xs font-medium">
-                {contributor.tweetsAdded} added
+                {contributor.itemsAdded || 0} added
               </span>
             </a>
           );
