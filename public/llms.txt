@@ -29,4 +29,4 @@ Marketers, builders, and creators who want curated, actionable advice without th
 ## Source
 
 Open source on GitHub: https://github.com/curiousleeo/content-vault
-Live site: https://content-vault.vercel.app
+Live site: https://marketing-tweets-repo.vercel.app
