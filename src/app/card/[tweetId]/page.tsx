@@ -3,7 +3,7 @@ import Link from "next/link";
 import marketingData from "@/data/marketing.json";
 import { ContentItem } from "@/types";
 
-const SITE_URL = "https://marketing-tweets-repo.vercel.app";
+const SITE_URL = "https://thecontent-vault.vercel.app";
 
 const categoryColors: Record<string, string> = {
   "Content Strategy": "#d4ff00",

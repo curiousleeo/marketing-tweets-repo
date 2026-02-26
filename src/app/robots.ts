@@ -22,6 +22,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://marketing-tweets-repo.vercel.app/sitemap.xml",
+    sitemap: "https://thecontent-vault.vercel.app/sitemap.xml",
   };
 }

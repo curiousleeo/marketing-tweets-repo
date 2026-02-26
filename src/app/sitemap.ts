@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import marketingData from "@/data/marketing.json";
 
-const SITE_URL = "https://marketing-tweets-repo.vercel.app";
+const SITE_URL = "https://thecontent-vault.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const tweetPages = (marketingData.items as { id: string; date: string }[]).map((item) => ({

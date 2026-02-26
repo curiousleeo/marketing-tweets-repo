@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marketing-tweets-repo.vercel.app"),
+  metadataBase: new URL("https://thecontent-vault.vercel.app"),
   title: {
     default: "The Content Vault",
     template: "%s | The Content Vault",
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     "community building",
     "developer productivity",
   ],
-  authors: [{ name: "The Content Vault", url: "https://marketing-tweets-repo.vercel.app" }],
+  authors: [{ name: "The Content Vault", url: "https://thecontent-vault.vercel.app" }],
   creator: "The Content Vault",
   openGraph: {
     title: "The Content Vault",
     description: "Real advice from real builders. Marketing wisdom and vibe coding insights, curated by the community.",
     type: "website",
-    url: "https://marketing-tweets-repo.vercel.app",
+    url: "https://thecontent-vault.vercel.app",
     siteName: "The Content Vault",
   },
   twitter: {
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://marketing-tweets-repo.vercel.app",
+    canonical: "https://thecontent-vault.vercel.app",
   },
 };
 

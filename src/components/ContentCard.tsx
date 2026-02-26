@@ -165,7 +165,7 @@ export default function ContentCard({ item }: ContentCardProps) {
 
   const handleTweetWithImage = async () => {
     setTweeting(true);
-    const cardUrl = `https://marketing-tweets-repo.vercel.app/card/${item.id}`;
+    const cardUrl = `https://thecontent-vault.vercel.app/card/${item.id}`;
     try {
       const res = await fetch(`/card/${item.id}/opengraph-image`);
       const blob = await res.blob();
